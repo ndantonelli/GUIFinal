@@ -5,6 +5,9 @@ import android.graphics.Typeface;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nantonelli.guifinal.Adapter.GridAdapter;
+import com.nantonelli.guifinal.Fragment.FavoritesFragment;
+import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.Service.RestfulApi;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
@@ -62,11 +65,19 @@ import retrofit.Retrofit;
  *      We need to use a singleton for typefaces because they take up resources on creation
  *      Also garbage collection is not always great on them, so a singleton solves that
  *      our typeface is lucida grande because that is the default itunes font
+ *
+ * 5. SongsRepo: returned through getSongsRepo
+ *      We need this to hold all of the songs for either search results or favorites.
+ *      This allows for different fragments and activities and classes to all have access
+ *          to the same songs information
  */
 
 @Module(
         injects = {
                 HomeActivity.class,
+                GridAdapter.class,
+                FavoritesFragment.class,
+                SongsRepo.class,
 
         }
 )
@@ -108,4 +119,10 @@ public class FinalModule {
     public Typeface getTypeFace(){
         return Typeface.createFromAsset(context.getAssets(), "ludica_grande.ttf");
     }
+
+//    @Singleton
+//    @Provides
+//    public SongsRepo getSongsRepo(){
+//        return new SongsRepo();
+//    }
 }

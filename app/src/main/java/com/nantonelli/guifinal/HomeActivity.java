@@ -3,6 +3,7 @@ package com.nantonelli.guifinal;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nantonelli.guifinal.Adapter.PagerAdapter;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.Response.SongsResponse;
 
@@ -36,6 +38,9 @@ import retrofit.Retrofit;
 
 public class HomeActivity extends BaseActivity {
     @Bind(R.id.tabLayout)TabLayout tabs;
+    @Bind(R.id.pager) ViewPager pager;
+
+    private PagerAdapter adapter;
 
     private static final String TAG = "HOME_ACTIVITY";
 
@@ -46,6 +51,28 @@ public class HomeActivity extends BaseActivity {
         ButterKnife.bind(this);
         setupToolbar();
         setupTabs();
+
+        adapter = new PagerAdapter(getSupportFragmentManager(), tabs.getTabCount());
+
+        pager.setAdapter(adapter);
+
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+        tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                pager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setupTabs(){

@@ -1,8 +1,10 @@
 package com.nantonelli.guifinal.Fragment;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -25,6 +27,7 @@ public class BaseFragment  extends Fragment{
     @Inject Bus eventBus;
     @Inject RestfulApi restService;
     @Inject Picasso picasso;
+    @Inject Typeface typeface;
 
     protected android.os.Handler mHandler;
 

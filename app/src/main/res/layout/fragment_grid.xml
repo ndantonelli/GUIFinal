@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Results for Jack Johnson"
+        android:id="@+id/results_title"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:maxLines="1"
+        android:textSize="20sp"/>
+    <GridView
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/song_grid"
+        android:layout_below="@id/results_title"
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"
+        android:numColumns="2"/>
+
+</RelativeLayout>

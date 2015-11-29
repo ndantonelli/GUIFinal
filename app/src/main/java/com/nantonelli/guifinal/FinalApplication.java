@@ -14,7 +14,7 @@ import dagger.ObjectGraph;
  */
 public class FinalApplication extends Application{
     private ObjectGraph objectGraph;
-    private FinalApplication instance;
+    private static FinalApplication instance;
     private Typeface typeface;
 
     @Override
@@ -26,7 +26,7 @@ public class FinalApplication extends Application{
     }
 
     //used to allow non activity/fragment classes access to the application context and singleton injections
-    public Application getInstance(){return instance;}
+    public static FinalApplication getInstance(){return instance;}
 
     //used for binding in classes to allow injections
     //should be all taken care of in base fragments/activities
