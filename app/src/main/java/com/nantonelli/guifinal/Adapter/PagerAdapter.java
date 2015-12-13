@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
 import com.nantonelli.guifinal.Fragment.FavoritesFragment;
+import com.nantonelli.guifinal.Fragment.SearchFragment;
 
 /**
  * Created by ndantonelli on 11/19/15.
@@ -21,7 +22,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return FavoritesFragment.newInstance();
+                return SearchFragment.newInstance();
             case 1:
                 return FavoritesFragment.newInstance();
             default:

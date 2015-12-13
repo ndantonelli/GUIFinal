@@ -61,6 +61,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pager.setCurrentItem(tab.getPosition());
+                Log.d(TAG, String.valueOf(tab.getPosition()));
             }
 
             @Override

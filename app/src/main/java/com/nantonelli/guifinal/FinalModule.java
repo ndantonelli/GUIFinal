@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nantonelli.guifinal.Adapter.GridAdapter;
 import com.nantonelli.guifinal.Fragment.FavoritesFragment;
+import com.nantonelli.guifinal.Fragment.SearchFragment;
 import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.Service.RestfulApi;
 import com.squareup.otto.Bus;
@@ -77,6 +78,7 @@ import retrofit.Retrofit;
                 HomeActivity.class,
                 GridAdapter.class,
                 FavoritesFragment.class,
+                SearchFragment.class,
                 SongsRepo.class,
 
         }

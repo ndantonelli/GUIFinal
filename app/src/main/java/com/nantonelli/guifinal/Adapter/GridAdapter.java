@@ -59,7 +59,9 @@ public class GridAdapter extends BaseAdapter {
     }
 
     public void refresh(List<Song> songs){
+
         this.songs = songs;
+        notifyDataSetChanged();
     }
     @Override
     public int getCount() {

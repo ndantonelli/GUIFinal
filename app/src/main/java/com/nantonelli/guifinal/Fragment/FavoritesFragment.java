@@ -71,7 +71,7 @@ public class FavoritesFragment extends BaseFragment{
                     songs.add(temp);
                 }
                 adapter.refresh(songs);
-                resultsTitle.setText("Results for Jack Johnson");
+                resultsTitle.setText("Results for Jack Johnson"); // results for query
                 resultsTitle.setTypeface(typeface);
             }
 

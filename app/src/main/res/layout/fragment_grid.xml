@@ -2,16 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_bar"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_query"
+        android:hint="Search"
+        android:maxLines="1"
+        android:layout_toLeftOf="@+id/search_button"
+        android:layout_toRightOf="@+id/search_bar"
+        android:layout_toEndOf="@+id/search_bar" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/song_grid"
+        android:id="@+id/search_button"
+        android:text="Search"
+        android:layout_alignBottom="@+id/search_query" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Results for Jack Johnson"
+        android:text="Last Searches"
         android:id="@+id/results_title"
-        android:layout_centerHorizontal="true"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:maxLines="1"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_below="@+id/search_bar"
+        android:layout_centerHorizontal="true" />
     <GridView
         android:layout_margin="4dp"
         android:layout_width="match_parent"
