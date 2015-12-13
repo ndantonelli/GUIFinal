@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nantonelli.guifinal.Adapter.GridAdapter;
+import com.nantonelli.guifinal.Adapter.ListAdapter;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.R;
 import com.nantonelli.guifinal.Response.SongsResponse;
@@ -38,6 +40,8 @@ public class SearchFragment extends BaseFragment {
     EditText searchQuery;
     @Bind(R.id.search_button)
     Button searchButton;
+
+
     private List<Song> songs;
     private GridAdapter adapter;
     private static final String TAG = "SEARCH_FRAGMENT";
@@ -50,10 +54,15 @@ public class SearchFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_grid, container, false);
+//        View v2 = inflater.inflate(R.layout.fragment_search_list, container, false);
+//        ButterKnife.bind(this, v2);
         ButterKnife.bind(this, v);
         songs = new ArrayList<>();
+//        searches = new String[5];
         adapter = new GridAdapter(getActivity(), songs);
+//        list_adapter = new ListAdapter(getActivity(), searches);
         songGrid.setAdapter(adapter);
+//        list.setAdapter(list_adapter);
         return v;
     }
 
@@ -61,7 +70,15 @@ public class SearchFragment extends BaseFragment {
     public void onResume(){
         super.onResume();
 
+        // -- just test values to populate the recent searches, eventually we will just use the global array of recent searches
+        String[] values = new String[] { "Eminem",
+                "Jack Johnson",
+                "George Strait",
+                "Coldplay",
+                "Maroon 5"
+        };
 
+//        list_adapter.refresh(values);
 
 
 
