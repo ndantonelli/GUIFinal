@@ -105,6 +105,7 @@ public class SearchFragment extends BaseFragment {
             @Override
             public void onClick(View v)
             {
+                hide_keyboard();
                 final String query = String.valueOf(searchQuery.getText());
                 String attr = attributeType.getSelectedItem().toString();
                 Log.d(TAG, attr);

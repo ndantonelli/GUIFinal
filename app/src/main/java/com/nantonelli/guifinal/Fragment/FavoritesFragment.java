@@ -38,8 +38,6 @@ import retrofit.Retrofit;
 public class FavoritesFragment extends BaseFragment{
 
     @Bind(R.id.song_grid) GridView songGrid;
-    @Bind(R.id.results_title) TextView resultsTitle;
-    private List<Favorite> songs;
     private FavoritesAdapter adapter;
     private static final String TAG = "FAVORITES_FRAGMENT";
 
@@ -50,7 +48,7 @@ public class FavoritesFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_grid, container, false);
+        View v = inflater.inflate(R.layout.fragment_faves, container, false);
         ButterKnife.bind(this, v);
         adapter = new FavoritesAdapter(getActivity(), repo.getFavorites());
         songGrid.setAdapter(adapter);
