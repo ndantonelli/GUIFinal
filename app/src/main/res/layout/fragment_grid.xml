@@ -8,11 +8,9 @@
         <!--android:id="@+id/search_bar"/>-->
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/search_bar"
-        android:layout_toLeftOf="@+id/results_title"
-        android:layout_toStartOf="@+id/results_title"
         android:layout_alignBottom="@+id/search_query"></Spinner>
     <EditText
         android:layout_width="wrap_content"
