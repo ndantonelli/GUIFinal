@@ -71,7 +71,8 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                pager.setCurrentItem(tab.getPosition());
+                Log.d(TAG, "ReSelect");
             }
         });
     }

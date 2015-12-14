@@ -58,7 +58,7 @@ public class FavoritesFragment extends BaseFragment{
     @Override
     public void onResume(){
         super.onResume();
-        Call<SongsResponse> call = restService.getSongs("jack johnson", 25);
+        Call<SongsResponse> call = restService.getSongs("jack johnson", 25, "songTerm");
         call.enqueue(new Callback<SongsResponse>() {
             @Override
             public void onResponse(Response<SongsResponse> response, Retrofit retrofit) {

@@ -1,14 +1,17 @@
 package com.nantonelli.guifinal.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.nantonelli.guifinal.Adapter.GridAdapter;
@@ -19,6 +22,7 @@ import com.nantonelli.guifinal.Response.SongsResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -40,14 +44,24 @@ public class SearchFragment extends BaseFragment {
     EditText searchQuery;
     @Bind(R.id.search_button)
     Button searchButton;
+    @Bind(R.id.search_bar)
+    Spinner attributeType;
 
 
     private List<Song> songs;
     private GridAdapter adapter;
     private static final String TAG = "SEARCH_FRAGMENT";
+    private static HashMap<String, String> attribute_table = new HashMap<String, String>();
 
     public static SearchFragment newInstance(){
         SearchFragment t = new SearchFragment();
+        attribute_table.put("Mix","mixTerm");
+        attribute_table.put("Genre","genreIndex");
+        attribute_table.put("Artist", "artistTerm");
+        attribute_table.put("Composer", "composerTerm");
+        attribute_table.put("Album", "albumTerm");
+        attribute_table.put("Rating", "ratingIndex");
+        attribute_table.put("Song", "songTerm");
         return t;
     }
     @Override
@@ -78,7 +92,11 @@ public class SearchFragment extends BaseFragment {
                 "Maroon 5"
         };
 
-//        list_adapter.refresh(values);
+        ArrayAdapter<CharSequence> arr_adapter = ArrayAdapter.createFromResource(getContext(), R.array.attributes_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        attributeType.setAdapter(arr_adapter);
 
 
 
@@ -88,8 +106,9 @@ public class SearchFragment extends BaseFragment {
             public void onClick(View v)
             {
                 final String query = String.valueOf(searchQuery.getText());
-                Log.d(TAG, query);
-                Call<SongsResponse> call = restService.getSongs(query, 25);
+                String attr = attributeType.getSelectedItem().toString();
+                Log.d(TAG, attr);
+                Call<SongsResponse> call = restService.getSongs(query, 25, attribute_table.get(attr));
                 call.enqueue(new Callback<SongsResponse>() {
                     @Override
                     public void onResponse(Response<SongsResponse> response, Retrofit retrofit) {
