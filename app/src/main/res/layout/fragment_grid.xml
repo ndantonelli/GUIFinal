@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_query"
         android:hint="Search"
-        android:maxLines="1"
+        android:lines="1"
+        android:singleLine="true"
         android:layout_toLeftOf="@+id/search_button"
         android:layout_toRightOf="@+id/search_bar"
         android:layout_toEndOf="@+id/search_bar" />
