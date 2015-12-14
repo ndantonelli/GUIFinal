@@ -5,12 +5,13 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="attributes_array">
-        <item>Mix</item>
-        <item>Genre</item>
-        <item>Artist</item>
-        <item>Composer</item>
-        <item>Album</item>
-        <item>Rating</item>
         <item>Song</item>
+        <item>Artist</item>
+        <item>Album</item>
+        <item>Genre</item>
+        <item>Mix</item>
+        <item>Composer</item>
+        <item>Rating</item>
+
     </string-array>
 </resources>

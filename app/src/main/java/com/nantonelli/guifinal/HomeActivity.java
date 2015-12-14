@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.activeandroid.query.Select;
 import com.nantonelli.guifinal.Adapter.PagerAdapter;
 import com.nantonelli.guifinal.Model.Favorite;
+import com.nantonelli.guifinal.Model.Query;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.Response.SongsResponse;
@@ -83,6 +84,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
         List<Favorite> faves = new Select().all().from(Favorite.class).execute();
+        List<Query> recents = new Select().all().from(Query.class).orderBy("time").execute();
         Log.d("Length", faves.size() + " items");
         for(int i = 0; i < faves.size(); i++){
             repo.addFavorite(faves.get(i));

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.nantonelli.guifinal.Adapter.GridAdapter;
 import com.nantonelli.guifinal.Adapter.ListAdapter;
+import com.nantonelli.guifinal.Model.Query;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.R;
 import com.nantonelli.guifinal.Response.SongsResponse;
