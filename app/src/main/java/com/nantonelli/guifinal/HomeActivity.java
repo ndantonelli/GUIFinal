@@ -68,6 +68,7 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pager.setCurrentItem(tab.getPosition());
+                Log.d(TAG, String.valueOf(tab.getPosition()));
             }
 
             @Override
@@ -77,7 +78,8 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                pager.setCurrentItem(tab.getPosition());
+                Log.d(TAG, "ReSelect");
             }
         });
         List<Favorite> faves = new Select().all().from(Favorite.class).execute();

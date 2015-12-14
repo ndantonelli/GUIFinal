@@ -1,6 +1,7 @@
 package com.nantonelli.guifinal.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -65,7 +66,9 @@ public class GridAdapter extends BaseAdapter {
     }
 
     public void refresh(List<Song> songs){
+
         this.songs = songs;
+        notifyDataSetChanged();
     }
     @Override
     public int getCount() {
@@ -104,6 +107,10 @@ public class GridAdapter extends BaseAdapter {
             vHold = (ViewHolder)convertView.getTag();
             vHold.runnable = new MediaRunnable(vHold);
             vHold.runnable.progress = 0;
+        }
+        vHold.text.setTextColor(Color.WHITE);
+        if (temp.isExplicit()) {
+            vHold.text.setTextColor(Color.RED);
         }
         vHold.text.setText(temp.getCensorTitle());
         picasso.load(temp.getArtUrl()).fit().priority(Picasso.Priority.HIGH).into(vHold.image);

@@ -9,10 +9,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.nantonelli.guifinal.Adapter.FavoritesAdapter;
 import com.nantonelli.guifinal.Adapter.GridAdapter;
-import com.nantonelli.guifinal.Events.FavoritesRefreshedEvent;
-import com.nantonelli.guifinal.Model.Favorite;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.R;
@@ -39,21 +36,21 @@ public class FavoritesFragment extends BaseFragment{
 
     @Bind(R.id.song_grid) GridView songGrid;
     @Bind(R.id.results_title) TextView resultsTitle;
-    private List<Favorite> songs;
-    private FavoritesAdapter adapter;
+    private List<Song> songs;
+    private GridAdapter adapter;
     private static final String TAG = "FAVORITES_FRAGMENT";
 
     public static FavoritesFragment newInstance(){
         FavoritesFragment t = new FavoritesFragment();
         return t;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_grid, container, false);
         ButterKnife.bind(this, v);
-        adapter = new FavoritesAdapter(getActivity(), repo.getFavorites());
+        songs = new ArrayList<>();
+        adapter = new GridAdapter(getActivity(), songs);
         songGrid.setAdapter(adapter);
         return v;
     }
