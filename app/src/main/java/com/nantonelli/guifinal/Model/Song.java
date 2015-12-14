@@ -30,6 +30,7 @@ public class Song {
     public String getPreviewUrl(){return previewUrl;}
     public String getArtUrl(){return artUrl;}
     public String getGenre(){return genre;}
+    public String getExplicit(){return explicit;}
 
     public int getArtistId(){return artistId;}
     public int getTrackId(){return trackId;}

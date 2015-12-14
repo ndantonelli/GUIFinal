@@ -14,11 +14,16 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
 import com.nantonelli.guifinal.Adapter.PagerAdapter;
+import com.nantonelli.guifinal.Model.Favorite;
 import com.nantonelli.guifinal.Model.Song;
+import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.Response.SongsResponse;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +42,8 @@ import retrofit.Retrofit;
  */
 
 public class HomeActivity extends BaseActivity {
+    @Inject SongsRepo repo;
+
     @Bind(R.id.tabLayout)TabLayout tabs;
     @Bind(R.id.pager) ViewPager pager;
 
@@ -73,6 +80,12 @@ public class HomeActivity extends BaseActivity {
 
             }
         });
+        List<Favorite> faves = new Select().all().from(Favorite.class).execute();
+        Log.d("Length", faves.size() + " items");
+        for(int i = 0; i < faves.size(); i++){
+            repo.addFavorite(faves.get(i));
+        }
+//        repo.setFavorites(faves);
     }
 
     private void setupTabs(){

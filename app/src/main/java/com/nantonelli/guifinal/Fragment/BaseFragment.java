@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.nantonelli.guifinal.FinalApplication;
+import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.Service.RestfulApi;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
@@ -28,6 +29,8 @@ public class BaseFragment  extends Fragment{
     @Inject RestfulApi restService;
     @Inject Picasso picasso;
     @Inject Typeface typeface;
+    @Inject
+    SongsRepo repo;
 
     protected android.os.Handler mHandler;
 

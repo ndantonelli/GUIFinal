@@ -15,14 +15,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.nantonelli.guifinal.Events.FavoritesRefreshedEvent;
 import com.nantonelli.guifinal.FinalApplication;
 import com.nantonelli.guifinal.Model.Favorite;
 import com.nantonelli.guifinal.Model.Song;
-import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.R;
 import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -33,7 +30,7 @@ import javax.inject.Inject;
 /**
  * Created by ndantonelli on 11/19/15.
  */
-public class GridAdapter extends BaseAdapter {
+public class FavoritesAdapter extends BaseAdapter {
     private static class ViewHolder{
         ImageView image;
         TextView text;
@@ -47,15 +44,14 @@ public class GridAdapter extends BaseAdapter {
     @Inject Picasso picasso;
     @Inject Typeface typeface;
     @Inject Bus eventBus;
-    @Inject SongsRepo repo;
     private Context mContext;
-    private List<Song> songs;
+    private List<Favorite> songs;
     private Handler mHandler;
     private MediaPlayer player;
 
     int playingPos = -1;
 
-    public GridAdapter(Context context, List<Song> events){
+    public FavoritesAdapter(Context context, List<Favorite> events){
         this.songs = events;
         mContext = context;
         FinalApplication.getInstance().getObjectGraph().inject(this);
@@ -64,7 +60,7 @@ public class GridAdapter extends BaseAdapter {
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
-    public void refresh(List<Song> songs){
+    public void refresh(List<Favorite> songs){
         this.songs = songs;
     }
     @Override
@@ -84,7 +80,7 @@ public class GridAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder vHold;
-        final Song temp = songs.get(position);
+        final Favorite temp = songs.get(position);
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
 
@@ -105,27 +101,10 @@ public class GridAdapter extends BaseAdapter {
             vHold.runnable = new MediaRunnable(vHold);
             vHold.runnable.progress = 0;
         }
-        vHold.text.setText(temp.getCensorTitle());
-        picasso.load(temp.getArtUrl()).fit().priority(Picasso.Priority.HIGH).into(vHold.image);
-        Log.d("ADAPTER", "Position: " + position + " Playing Post: " + playingPos);
+        vHold.text.setText(temp.censorTitle);
+        picasso.load(temp.artUrl).fit().priority(Picasso.Priority.HIGH).into(vHold.image);
 
-        if(repo.isFavorite(temp)){
-            vHold.star.setAlpha(1.0f);
-            vHold.star.setOnClickListener(null);
-        }
-        else{
-            vHold.star.setAlpha(.5f);
-            vHold.star.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    vHold.star.setAlpha(1.0f);
-                    Favorite fave = new Favorite(temp);
-                    repo.addFavorite(fave);
-                    fave.save();
-                    vHold.star.setOnClickListener(null);
-                }
-            });
-        }
+        vHold.star.setVisibility(View.GONE);
         if(position == playingPos) {
             vHold.flipper.setDisplayedChild(1);
             mHandler.post(vHold.runnable);
@@ -173,7 +152,7 @@ public class GridAdapter extends BaseAdapter {
                         }
                     });
                     try {
-                        player.setDataSource(temp.getPreviewUrl());
+                        player.setDataSource(temp.previewUrl);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -203,7 +182,6 @@ public class GridAdapter extends BaseAdapter {
 
         @Override
         public void run(){
-            Log.d("Progress", "Something cool");
             progress = player.getCurrentPosition();
             vHold.progress.setProgress(progress);
             if(progress < 28477)

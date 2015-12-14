@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nantonelli.guifinal.Adapter.FavoritesAdapter;
 import com.nantonelli.guifinal.Adapter.GridAdapter;
 import com.nantonelli.guifinal.Fragment.FavoritesFragment;
 import com.nantonelli.guifinal.Model.SongsRepo;
@@ -78,6 +79,8 @@ import retrofit.Retrofit;
                 GridAdapter.class,
                 FavoritesFragment.class,
                 SongsRepo.class,
+                FavoritesAdapter.class,
+
 
         }
 )
@@ -120,9 +123,9 @@ public class FinalModule {
         return Typeface.createFromAsset(context.getAssets(), "ludica_grande.ttf");
     }
 
-//    @Singleton
-//    @Provides
-//    public SongsRepo getSongsRepo(){
-//        return new SongsRepo();
-//    }
+    @Singleton
+    @Provides
+    public SongsRepo getSongsRepo(){
+        return new SongsRepo();
+    }
 }

@@ -1,5 +1,8 @@
 package com.nantonelli.guifinal.Model;
 
+import android.util.Log;
+
+import com.nantonelli.guifinal.Events.FavoritesRefreshedEvent;
 import com.nantonelli.guifinal.FinalApplication;
 import com.squareup.otto.Bus;
 
@@ -16,7 +19,7 @@ public class SongsRepo {
     Bus eventBus;
 
     private List<Song> searchSongs;
-    private List<Song> favorites;
+    private List<Favorite> favorites;
 
     public SongsRepo(){
         FinalApplication.getInstance().getObjectGraph().inject(this);
@@ -26,9 +29,26 @@ public class SongsRepo {
     }
 
     public List<Song> getSearchSongs(){return searchSongs;}
-    public List<Song> getFavorites(){return favorites;}
+    public List<Favorite> getFavorites(){return favorites;}
 
     public void setSearchSongs(List<Song> songs){
         searchSongs=songs;
+    }
+    public void setFavorites(List<Favorite> favorites){
+        this.favorites = favorites;
+        eventBus.post(new FavoritesRefreshedEvent());
+    }
+
+    public void addFavorite(Favorite fave){
+        favorites.add(fave);
+        eventBus.post(new FavoritesRefreshedEvent());
+    }
+
+    public boolean isFavorite(Song s){
+        for(int i = 0; i < favorites.size(); i++) {
+            if (favorites.get(i).trackId == s.getTrackId())
+                return true;
+        }
+        return false;
     }
 }

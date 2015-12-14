@@ -3,6 +3,9 @@ package com.nantonelli.guifinal;
 import android.app.Application;
 import android.graphics.Typeface;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Configuration;
+
 import dagger.ObjectGraph;
 
 /**
@@ -12,7 +15,7 @@ import dagger.ObjectGraph;
  * Works in tandem with FinalModule to manage injections of singletons
  * THIS IS THE ENTRY POINT OF THE APP! (this is the very first code executed when the app is opened)
  */
-public class FinalApplication extends Application{
+public class FinalApplication extends com.activeandroid.app.Application{
     private ObjectGraph objectGraph;
     private static FinalApplication instance;
     private Typeface typeface;
@@ -23,6 +26,8 @@ public class FinalApplication extends Application{
         instance = this;
         objectGraph = ObjectGraph.create(new FinalModule(this));
         typeface=Typeface.createFromAsset(getAssets(), "ludica_grande.ttf");
+        Configuration dbConfiguration = new Configuration.Builder(this).setDatabaseName("faves.db").create();
+        ActiveAndroid.initialize(dbConfiguration);
     }
 
     //used to allow non activity/fragment classes access to the application context and singleton injections
