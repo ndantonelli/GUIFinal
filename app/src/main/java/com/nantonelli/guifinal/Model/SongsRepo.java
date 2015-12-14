@@ -3,6 +3,7 @@ package com.nantonelli.guifinal.Model;
 import android.util.Log;
 
 import com.nantonelli.guifinal.Events.FavoritesRefreshedEvent;
+import com.nantonelli.guifinal.Events.QueriesRefreshedEvent;
 import com.nantonelli.guifinal.FinalApplication;
 import com.squareup.otto.Bus;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
 
 /**
  * Created by ndantonelli on 11/19/15.
@@ -20,16 +22,19 @@ public class SongsRepo {
 
     private List<Song> searchSongs;
     private List<Favorite> favorites;
+    private List<Query> queries;
 
     public SongsRepo(){
         FinalApplication.getInstance().getObjectGraph().inject(this);
         eventBus.register(this);
         searchSongs = new ArrayList<>();
         favorites = new ArrayList<>();
+        queries = new ArrayList<>();
     }
 
     public List<Song> getSearchSongs(){return searchSongs;}
     public List<Favorite> getFavorites(){return favorites;}
+    public List<Query> getQueries(){return queries;}
 
     public void setSearchSongs(List<Song> songs){
         searchSongs=songs;
@@ -37,6 +42,11 @@ public class SongsRepo {
     public void setFavorites(List<Favorite> favorites){
         this.favorites = favorites;
         eventBus.post(new FavoritesRefreshedEvent());
+    }
+
+    public void setQueries(List<Query> queries){
+        this.queries = queries;
+        eventBus.post(new QueriesRefreshedEvent());
     }
 
     public void addFavorite(Favorite fave){

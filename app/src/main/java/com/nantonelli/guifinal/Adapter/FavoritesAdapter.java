@@ -1,6 +1,7 @@
 package com.nantonelli.guifinal.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -15,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.nantonelli.guifinal.Events.ShowFavoriteDialogEvent;
+import com.nantonelli.guifinal.Events.ShowSongDialogEvent;
 import com.nantonelli.guifinal.FinalApplication;
 import com.nantonelli.guifinal.Model.Favorite;
 import com.nantonelli.guifinal.Model.Song;
@@ -103,6 +106,17 @@ public class FavoritesAdapter extends BaseAdapter {
         }
         vHold.text.setText(temp.censorTitle);
         picasso.load(temp.artUrl).fit().priority(Picasso.Priority.HIGH).into(vHold.image);
+
+        vHold.text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventBus.post(new ShowFavoriteDialogEvent(temp));
+            }
+        });
+        vHold.text.setTextColor(Color.WHITE);
+        if (temp.isExplicit()) {
+            vHold.text.setTextColor(Color.RED);
+        }
 
         vHold.star.setVisibility(View.GONE);
         if(position == playingPos) {

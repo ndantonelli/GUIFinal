@@ -16,14 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.nantonelli.guifinal.Events.FavoritesRefreshedEvent;
+import com.nantonelli.guifinal.Events.ShowSongDialogEvent;
 import com.nantonelli.guifinal.FinalApplication;
 import com.nantonelli.guifinal.Model.Favorite;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.R;
 import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -114,8 +113,12 @@ public class GridAdapter extends BaseAdapter {
         }
         vHold.text.setText(temp.getCensorTitle());
         picasso.load(temp.getArtUrl()).fit().priority(Picasso.Priority.HIGH).into(vHold.image);
-        Log.d("ADAPTER", "Position: " + position + " Playing Post: " + playingPos);
-
+        vHold.text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventBus.post(new ShowSongDialogEvent(temp));
+            }
+        });
         if(repo.isFavorite(temp)){
             vHold.star.setAlpha(1.0f);
             vHold.star.setOnClickListener(null);
@@ -210,7 +213,6 @@ public class GridAdapter extends BaseAdapter {
 
         @Override
         public void run(){
-            Log.d("Progress", "Something cool");
             progress = player.getCurrentPosition();
             vHold.progress.setProgress(progress);
             if(progress < 28477)

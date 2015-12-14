@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by ndantonelli on 12/13/15.
  */
-@Table(name = "Favorites")
+@Table(name = "Faves")
 public class Favorite extends Model {
     @Column(name = "Title")
     public String title;
@@ -24,6 +24,8 @@ public class Favorite extends Model {
     public String genre;
     @Column(name = "PreviewURL")
     public String previewUrl;
+    @Column(name = "Album")
+    public String album;
 
     @Column(name = "Length")
     public int length;
@@ -31,6 +33,8 @@ public class Favorite extends Model {
     public int artistId;
     @Column(name = "TrackId")
     public int trackId;
+    @Column(name = "Price")
+    public double price;
 
     public Favorite(){
         super();
@@ -48,5 +52,13 @@ public class Favorite extends Model {
         length = s.getLength();
         artistId = s.getArtistId();
         trackId = s.getTrackId();
+        album = s.getAlbum();
+        price = s.getTrackPrice();
+    }
+
+    public boolean isExplicit(){
+        if(explicit != null)
+            return explicit.equals("notExplicit")?false:true;
+        return false;
     }
 }

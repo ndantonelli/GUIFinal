@@ -5,20 +5,20 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/itunes"
+        android:label="AyalaDaSongz"
         android:theme="@style/AppTheme"
         android:name=".FinalApplication">
-        <meta-data android:name="AA_DB_NAME" android:value="faves.db" />
+        <meta-data android:name="AA_DB_NAME" android:value="final.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="1" />
+            android:value="2" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.nantonelli.guifinal.Model.Favorite,com.nantonelli.gui.Model.Query" />
+            android:value="com.nantonelli.guifinal.Model.Favorite,com.nantonelli.guifinal.Model.Query" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/app_name" >
+            android:label="AyalaDaSongz" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.package.name.HomeActivity"/>

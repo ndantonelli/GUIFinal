@@ -5,6 +5,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.sql.Date;
 
@@ -18,7 +19,7 @@ public class Query extends Model {
     @Column(name = "Attribute")
     public String attribute;
     @Column(name = "Time")
-    public Date time;
+    public String time;
 
 
     public Query(){
@@ -30,7 +31,7 @@ public class Query extends Model {
         this.item = item;
         this.attribute = attribute;
         java.sql.Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-        this.time = timeNow;
+        this.time = new SimpleDateFormat("yyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     }
 
 }

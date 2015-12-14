@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/dia_artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:background="#80000000"
+        android:text = "Artist"/>
+    <TextView
+        android:id="@+id/dia_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:background="#B0000000"
+        android:text="Album" />
+    <TextView
+        android:id="@+id/dia_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#80000000"
+        android:textColor="#fff"
+        android:text="Genre"/>
+    <TextView
+        android:id="@+id/dia_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:background="#B0000000"
+        android:text="Price"/>
+
+</LinearLayout>

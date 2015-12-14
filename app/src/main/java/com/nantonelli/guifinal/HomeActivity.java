@@ -16,11 +16,16 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.nantonelli.guifinal.Adapter.PagerAdapter;
+import com.nantonelli.guifinal.Events.FlipViewEvent;
+import com.nantonelli.guifinal.Events.ShowFavoriteDialogEvent;
+import com.nantonelli.guifinal.Events.ShowSongDialogEvent;
+import com.nantonelli.guifinal.Fragment.DialogFrag;
 import com.nantonelli.guifinal.Model.Favorite;
 import com.nantonelli.guifinal.Model.Query;
 import com.nantonelli.guifinal.Model.Song;
 import com.nantonelli.guifinal.Model.SongsRepo;
 import com.nantonelli.guifinal.Response.SongsResponse;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -79,17 +84,13 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                pager.setCurrentItem(tab.getPosition());
-                Log.d(TAG, "ReSelect");
+                postEvent(new FlipViewEvent());
             }
         });
         List<Favorite> faves = new Select().all().from(Favorite.class).execute();
-        List<Query> recents = new Select().all().from(Query.class).orderBy("time").execute();
-        Log.d("Length", faves.size() + " items");
-        for(int i = 0; i < faves.size(); i++){
-            repo.addFavorite(faves.get(i));
-        }
-//        repo.setFavorites(faves);
+        repo.setFavorites(faves);
+        List<Query> recents = new Select().all().from(Query.class).orderBy("Time DESC").limit(5).execute();
+        repo.setQueries(recents);
     }
 
     private void setupTabs(){
@@ -109,44 +110,13 @@ public class HomeActivity extends BaseActivity {
         tabs.addTab(tabs.newTab().setCustomView(tabTwo));
     }
 
-//    @OnClick(R.id.clickButton)
-//    public void clickStuff(){
-//        Call<SongsResponse> call = restService.getSongs("jack johnson", 5);
-//        call.enqueue(new Callback<SongsResponse>() {
-//            @Override
-//            public void onResponse(Response<SongsResponse> response, Retrofit retrofit) {
-//
-//                List<Song> results = response.body().getResults();
-//                for(int i = 0; i < results.size(); i++)
-//                    Log.d(TAG, results.get(i).getTitle());
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//
-//            }
-//        });
-//    }
+    @Subscribe
+    public void somethingSong(ShowSongDialogEvent event){
+        new DialogFrag(event.getSong()).show(getSupportFragmentManager(), "SongDialogFrag");
+    }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_home, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Subscribe
+    public void somethingFavorite(ShowFavoriteDialogEvent event){
+        new DialogFrag(event.getThing()).show(getSupportFragmentManager(), "SongDialogFrag");
+    }
 }

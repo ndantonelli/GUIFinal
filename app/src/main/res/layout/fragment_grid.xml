@@ -11,13 +11,15 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/search_bar"
-        android:layout_alignBottom="@+id/search_query"></Spinner>
+        android:layout_alignBottom="@+id/search_query"
+        android:padding="5dp"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/search_query"
         android:hint="Search"
         android:lines="1"
+        android:inputType="textCapWords"
         android:singleLine="true"
         android:layout_toLeftOf="@+id/search_button"
         android:layout_toRightOf="@+id/search_bar"
@@ -27,7 +29,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/song_grid"
+        android:layout_alignRight="@+id/list_flipper"
         android:id="@+id/search_button"
         android:text="Search"
         android:layout_alignBottom="@+id/search_query" />
@@ -42,14 +44,26 @@
         android:textSize="20sp"
         android:layout_below="@+id/search_bar"
         android:layout_centerHorizontal="true" />
-    <GridView
-        android:layout_margin="4dp"
+    <ViewFlipper
+        android:id="@+id/list_flipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/song_grid"
-        android:layout_below="@id/results_title"
-        android:verticalSpacing="4dp"
-        android:horizontalSpacing="4dp"
-        android:numColumns="2"/>
+        android:layout_margin="4dp"
+        android:layout_below="@id/results_title">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recent_search_list"
+            android:dividerHeight="0dp"
+            />
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/song_grid"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"
+            android:numColumns="2"/>
+    </ViewFlipper>
+
 
 </RelativeLayout>

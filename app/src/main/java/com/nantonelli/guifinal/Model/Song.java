@@ -18,11 +18,14 @@ public class Song {
     @SerializedName("artworkUrl100") String artUrl;
     @SerializedName("trackExplicitness") String explicit;
     @SerializedName("primaryGenreName") String genre;
+    @SerializedName("collectionName") String album;
     String previewUrl;
 
     @SerializedName("trackTimeMillis") int length;
     int artistId;
     int trackId;
+    double trackPrice;
+
 
     public String getTitle(){return title;}
     public String getCensorTitle(){return censorTitle;}
@@ -31,10 +34,16 @@ public class Song {
     public String getArtUrl(){return artUrl;}
     public String getGenre(){return genre;}
     public String getExplicit(){return explicit;}
+    public String getAlbum(){return album;}
 
     public int getArtistId(){return artistId;}
     public int getTrackId(){return trackId;}
     public int getLength(){return length;}
+    public double getTrackPrice(){return trackPrice;}
 
-    public boolean isExplicit(){return explicit.equals("notExplicit")?false:true;}
+    public boolean isExplicit(){
+        if(explicit != null)
+            return explicit.equals("notExplicit")?false:true;
+        return false;
+    }
 }
