@@ -49,7 +49,7 @@ public class FavoritesAdapter extends BaseAdapter {
     @Inject Picasso picasso;
     @Inject Typeface typeface;
     @Inject Bus eventBus;
-    
+
     private Context mContext;
     private List<Favorite> songs;
     private Handler mHandler;
