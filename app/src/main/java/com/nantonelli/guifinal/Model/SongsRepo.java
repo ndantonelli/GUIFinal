@@ -17,28 +17,21 @@ import javax.inject.Inject;
  * Created by ndantonelli on 11/19/15.
  */
 public class SongsRepo {
-    @Inject
-    Bus eventBus;
+    @Inject Bus eventBus;
 
-    private List<Song> searchSongs;
     private List<Favorite> favorites;
     private List<Query> queries;
 
     public SongsRepo(){
         FinalApplication.getInstance().getObjectGraph().inject(this);
         eventBus.register(this);
-        searchSongs = new ArrayList<>();
         favorites = new ArrayList<>();
         queries = new ArrayList<>();
     }
 
-    public List<Song> getSearchSongs(){return searchSongs;}
     public List<Favorite> getFavorites(){return favorites;}
     public List<Query> getQueries(){return queries;}
 
-    public void setSearchSongs(List<Song> songs){
-        searchSongs=songs;
-    }
     public void setFavorites(List<Favorite> favorites){
         this.favorites = favorites;
         eventBus.post(new FavoritesRefreshedEvent());

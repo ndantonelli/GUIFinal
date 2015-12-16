@@ -32,6 +32,8 @@ import javax.inject.Inject;
 
 /**
  * Created by ndantonelli on 11/19/15.
+ * this adapter does the majority of the work for this project
+ * it handles playback of the music and making sure that 2 songs dont play at once
  */
 public class GridAdapter extends BaseAdapter {
     private static class ViewHolder{
@@ -48,6 +50,7 @@ public class GridAdapter extends BaseAdapter {
     @Inject Typeface typeface;
     @Inject Bus eventBus;
     @Inject SongsRepo repo;
+
     private Context mContext;
     private List<Song> songs;
     private Handler mHandler;
@@ -89,7 +92,6 @@ public class GridAdapter extends BaseAdapter {
         final Song temp = songs.get(position);
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-
             vHold = new ViewHolder();
             convertView = inflater.inflate(R.layout.component_grid_item, parent, false);
             vHold.text= (TextView) convertView.findViewById(R.id.title);
@@ -107,18 +109,17 @@ public class GridAdapter extends BaseAdapter {
             vHold.runnable = new MediaRunnable(vHold);
             vHold.runnable.progress = 0;
         }
+
+        if (temp.isExplicit()) vHold.text.setTextColor(Color.RED);
         vHold.text.setTextColor(Color.WHITE);
-        if (temp.isExplicit()) {
-            vHold.text.setTextColor(Color.RED);
-        }
         vHold.text.setText(temp.getCensorTitle());
-        picasso.load(temp.getArtUrl()).fit().priority(Picasso.Priority.HIGH).into(vHold.image);
         vHold.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 eventBus.post(new ShowSongDialogEvent(temp));
             }
         });
+        picasso.load(temp.getArtUrl()).fit().priority(Picasso.Priority.HIGH).into(vHold.image);
         if(repo.isFavorite(temp)){
             vHold.star.setAlpha(1.0f);
             vHold.star.setOnClickListener(null);
@@ -136,6 +137,8 @@ public class GridAdapter extends BaseAdapter {
                 }
             });
         }
+
+        //determines the view for a song that is already playing
         if(position == playingPos) {
             vHold.flipper.setDisplayedChild(1);
             mHandler.post(vHold.runnable);
@@ -202,6 +205,7 @@ public class GridAdapter extends BaseAdapter {
         return convertView;
     }
 
+    //handles updating the progress bar for the playing song
     private class MediaRunnable implements Runnable {
 
         private ViewHolder vHold;

@@ -14,5 +14,6 @@ import retrofit.http.Query;
  */
 public interface RestfulApi {
     @GET("search")
-    Call<SongsResponse> getSongs(@Query("term") String searchTerm, @Query("limit") int numResults, @Query("attribute") String attribute);
+    Call<SongsResponse> getSongs(@Query("term") String searchTerm, @Query("limit") int numResults,
+                                 @Query("attribute") String attribute);
 }

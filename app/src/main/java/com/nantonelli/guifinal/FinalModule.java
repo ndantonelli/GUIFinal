@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nantonelli.guifinal.Adapter.FavoritesAdapter;
 import com.nantonelli.guifinal.Adapter.GridAdapter;
-import com.nantonelli.guifinal.Adapter.ListAdapter;
 import com.nantonelli.guifinal.Fragment.FavoritesFragment;
 import com.nantonelli.guifinal.Fragment.SearchFragment;
 import com.nantonelli.guifinal.Model.SongsRepo;
@@ -79,7 +78,6 @@ import retrofit.Retrofit;
         injects = {
                 HomeActivity.class,
                 GridAdapter.class,
-                ListAdapter.class,
                 FavoritesFragment.class,
                 SearchFragment.class,
                 SongsRepo.class,

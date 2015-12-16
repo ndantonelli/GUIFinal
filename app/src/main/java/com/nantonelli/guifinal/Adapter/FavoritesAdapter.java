@@ -32,6 +32,8 @@ import javax.inject.Inject;
 
 /**
  * Created by ndantonelli on 11/19/15.
+ * duplicate of the GridAdapter.  Due to time constraints, it is the same code, slightly adapter
+ * used for favorites rather than songs
  */
 public class FavoritesAdapter extends BaseAdapter {
     private static class ViewHolder{
@@ -47,6 +49,7 @@ public class FavoritesAdapter extends BaseAdapter {
     @Inject Picasso picasso;
     @Inject Typeface typeface;
     @Inject Bus eventBus;
+    
     private Context mContext;
     private List<Favorite> songs;
     private Handler mHandler;

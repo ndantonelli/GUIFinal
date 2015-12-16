@@ -19,6 +19,5 @@ public class SongsResponse {
     @SerializedName("resultCount") int count;
     List<Song> results;
 
-    public int getCount(){return count;}
     public List<Song> getResults(){return results;}
 }

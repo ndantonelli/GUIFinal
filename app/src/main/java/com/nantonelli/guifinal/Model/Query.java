@@ -11,6 +11,7 @@ import java.sql.Date;
 
 /**
  * Created by erikgabrielsen on 12/13/15.
+ * model used for the SQLite database
  */
 @Table(name="History")
 public class Query extends Model {

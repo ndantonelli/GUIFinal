@@ -7,34 +7,26 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by ndantonelli on 12/13/15.
+ * this class is a model for the SQLite database.  It is also identical to a Song object
+ * due to time constraints, I wasn't sure if the song object could extend model, so I made a copy
+ * not ideal because it cause me to have to create a different adapter, but I knew that it
+ * would work
  */
 @Table(name = "Faves")
 public class Favorite extends Model {
-    @Column(name = "Title")
-    public String title;
-    @Column(name = "CensorTitle")
-    public String censorTitle;
-    @Column(name = "Artist")
-    public String artist;
-    @Column(name = "ArtURL")
-    public String artUrl;
-    @Column(name = "Explicit")
-    public String explicit;
-    @Column(name = "Genre")
-    public String genre;
-    @Column(name = "PreviewURL")
-    public String previewUrl;
-    @Column(name = "Album")
-    public String album;
+    @Column(name = "Title") public String title;
+    @Column(name = "CensorTitle") public String censorTitle;
+    @Column(name = "Artist") public String artist;
+    @Column(name = "ArtURL") public String artUrl;
+    @Column(name = "Explicit") public String explicit;
+    @Column(name = "Genre") public String genre;
+    @Column(name = "PreviewURL") public String previewUrl;
+    @Column(name = "Album") public String album;
 
-    @Column(name = "Length")
-    public int length;
-    @Column(name = "ArtistId")
-    public int artistId;
-    @Column(name = "TrackId")
-    public int trackId;
-    @Column(name = "Price")
-    public double price;
+    @Column(name = "Length") public int length;
+    @Column(name = "ArtistId") public int artistId;
+    @Column(name = "TrackId") public int trackId;
+    @Column(name = "Price") public double price;
 
     public Favorite(){
         super();

@@ -18,7 +18,6 @@ import android.widget.ViewFlipper;
 
 import com.activeandroid.query.Select;
 import com.nantonelli.guifinal.Adapter.GridAdapter;
-import com.nantonelli.guifinal.Adapter.ListAdapter;
 import com.nantonelli.guifinal.Adapter.RecentAdapter;
 import com.nantonelli.guifinal.Events.FlipViewEvent;
 import com.nantonelli.guifinal.Events.QueriesRefreshedEvent;
@@ -44,18 +43,12 @@ import retrofit.Retrofit;
  * Created by erikgabrielsen on 12/12/15.
  */
 public class SearchFragment extends BaseFragment {
-    @Bind(R.id.song_grid)
-    GridView songGrid;
-    @Bind(R.id.results_title)
-    TextView resultsTitle;
-    @Bind(R.id.search_query)
-    EditText searchQuery;
-    @Bind(R.id.search_button)
-    Button searchButton;
-    @Bind(R.id.search_bar)
-    Spinner attributeType;
-    @Bind(R.id.list_flipper)
-    ViewFlipper flipper;
+    @Bind(R.id.song_grid) GridView songGrid;
+    @Bind(R.id.results_title) TextView resultsTitle;
+    @Bind(R.id.search_query) EditText searchQuery;
+    @Bind(R.id.search_button) Button searchButton;
+    @Bind(R.id.search_bar) Spinner attributeType;
+    @Bind(R.id.list_flipper) ViewFlipper flipper;
     @Bind(R.id.recent_search_list) ListView recents;
 
 
@@ -80,15 +73,13 @@ public class SearchFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_grid, container, false);
-//        View v2 = inflater.inflate(R.layout.fragment_search_list, container, false);
-//        ButterKnife.bind(this, v2);
         ButterKnife.bind(this, v);
-        songs = new ArrayList<>();
-//        searches = new String[5];
+        resultsTitle.setTypeface(typeface);
+
+        songs = new ArrayList<Song>();
         adapter = new GridAdapter(getActivity(), songs);
-//        list_adapter = new ListAdapter(getActivity(), searches);
         songGrid.setAdapter(adapter);
-//        list.setAdapter(list_adapter);
+
         recentsAdapter = new RecentAdapter(getActivity(), repo.getQueries());
         recents.setAdapter(recentsAdapter);
         recents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,7 +103,6 @@ public class SearchFragment extends BaseFragment {
                         }
                         adapter.refresh(songs);
                         resultsTitle.setText("Results for " + query); // results for query
-                        resultsTitle.setTypeface(typeface);
                     }
 
                     @Override
@@ -129,21 +119,11 @@ public class SearchFragment extends BaseFragment {
     public void onResume(){
         super.onResume();
 
-        // -- just test values to populate the recent searches, eventually we will just use the global array of recent searches
-        String[] values = new String[] { "Eminem",
-                "Jack Johnson",
-                "George Strait",
-                "Coldplay",
-                "Maroon 5"
-        };
-
         ArrayAdapter<CharSequence> arr_adapter = ArrayAdapter.createFromResource(getContext(), R.array.attributes_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         attributeType.setAdapter(arr_adapter);
-
-
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,14 +132,12 @@ public class SearchFragment extends BaseFragment {
                 final String query = String.valueOf(searchQuery.getText());
                 final String attr = attributeType.getSelectedItem().toString();
                 searchQuery.setText("");
-                Log.d(TAG, attr);
                 Call<SongsResponse> call = restService.getSongs(query, 25, attribute_table.get(attr));
                 call.enqueue(new Callback<SongsResponse>() {
                     @Override
                     public void onResponse(Response<SongsResponse> response, Retrofit retrofit) {
-                        flipper.setDisplayedChild(1);
-                        Query query1 = new Query(query, attr);
-                        query1.save();
+                        flipper.setDisplayedChild(1);//display the results gridview
+                        new Query(query, attr).save();// save the query to the database
                         List<Query> recents = new Select().all().from(Query.class).orderBy("Time DESC").limit(5).execute();
                         repo.setQueries(recents);
                         List<Song> results = response.body().getResults();
@@ -181,17 +159,17 @@ public class SearchFragment extends BaseFragment {
                 });
             }
         });
-
-//
     }
 
     @Subscribe
+    //we have added new queries from the database
     public void newQueries(QueriesRefreshedEvent event){
         recentsAdapter.clear();
         recentsAdapter.addAll(repo.getQueries());
     }
 
     @Subscribe
+    //the search tab has been clicked again so return to the recents list
     public void flipBack(FlipViewEvent event){
         resultsTitle.setText("Recent Searches");
         flipper.setDisplayedChild(0);

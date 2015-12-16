@@ -74,7 +74,6 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pager.setCurrentItem(tab.getPosition());
-                Log.d(TAG, String.valueOf(tab.getPosition()));
             }
 
             @Override
@@ -87,8 +86,12 @@ public class HomeActivity extends BaseActivity {
                 postEvent(new FlipViewEvent());
             }
         });
+
+        //get the list of favorites from the sqlite database
         List<Favorite> faves = new Select().all().from(Favorite.class).execute();
         repo.setFavorites(faves);
+
+        // get the list of 5 recent searches from the sqlite database
         List<Query> recents = new Select().all().from(Query.class).orderBy("Time DESC").limit(5).execute();
         repo.setQueries(recents);
     }
@@ -111,12 +114,12 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void somethingSong(ShowSongDialogEvent event){
+    public void showSongDialog(ShowSongDialogEvent event){
         new DialogFrag(event.getSong()).show(getSupportFragmentManager(), "SongDialogFrag");
     }
 
     @Subscribe
-    public void somethingFavorite(ShowFavoriteDialogEvent event){
+    public void showFavoriteDialog(ShowFavoriteDialogEvent event){
         new DialogFrag(event.getThing()).show(getSupportFragmentManager(), "SongDialogFrag");
     }
 }

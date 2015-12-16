@@ -26,6 +26,8 @@ public class FinalApplication extends com.activeandroid.app.Application{
         instance = this;
         objectGraph = ObjectGraph.create(new FinalModule(this));
         typeface=Typeface.createFromAsset(getAssets(), "ludica_grande.ttf");
+
+        //configure the sqlite database
         Configuration dbConfiguration = new Configuration.Builder(this).setDatabaseName("favorites.db").create();
         ActiveAndroid.initialize(dbConfiguration);
     }
