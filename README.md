@@ -16,6 +16,9 @@ As an assignment for my Graphical User Interface class, I was tasked with Creati
 ## Code Example
 
 ![Search Screen](img/SearchScreen.png)
+![Search Screen Options](img/SearchScreenExpanded.png)
+![Results Screen](img/SearchResultsScreen.png)
+![Favorites Screen](img/FavoritesScreen.png)
 
 ## Motivation
 
